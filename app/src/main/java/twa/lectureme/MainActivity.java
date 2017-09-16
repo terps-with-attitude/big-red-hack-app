@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class MainActivity extends Activity implements View.OnClickListener{
+public class MainActivity extends Activity {
 
     private Button createRoomButton, joinRoomButton;
     private EditText roomIdText, usernameText;
@@ -24,36 +24,28 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
         createRoomButton = findViewById(R.id.activity_main_createroom_button);
         joinRoomButton = findViewById(R.id.activity_main_join_room_button);
-        roomIdText =  findViewById(R.id.activity_main_room_id);
+        roomIdText = findViewById(R.id.activity_main_room_id);
         usernameText = findViewById(R.id.activity_main_room_username);
 
-        createRoomButton.setOnClickListener(this);
-        joinRoomButton.setOnClickListener(this);
 
     }
 
-    @Override
-    public void onClick(View view) {
-        if (view == createRoomButton) {
-            Intent intent = new Intent(this, HostActivity.class);
-            startActivity(intent);
 
+    public void onCreateRoom(View v) {
+        Intent intent = new Intent(this, HostActivity.class);
+        startActivity(intent);
+    }
 
-
-
-        } else if (view == joinRoomButton) {
-            if (roomIdText.getText().toString().length() != 5) {
-                roomIdText.setError("ID is a 5 length code.");
-                Log.d("E", "Incorrect id entered.");
-            }
-            if (usernameText.getText().toString().length() < 3) {
-                usernameText.setError("Name must be atleast 3 characters.");
-                Log.d("E", "Invalid username.");
-            }
-
-            // process joining room
+    public void onJoinRoom(View v) {
+        if (roomIdText.getText().toString().length() != 5) {
+            roomIdText.setError("ID is a 5 length code.");
+            Log.d("E", "Incorrect id entered.");
         }
+        if (usernameText.getText().toString().length() < 3) {
+            usernameText.setError("Name must be atleast 3 characters.");
+            Log.d("E", "Invalid username.");
+        }
+
+        // process joining room
     }
-
 }
-

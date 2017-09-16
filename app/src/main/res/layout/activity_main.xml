@@ -35,25 +35,26 @@
         android:id="@+id/activity_main_room_username"/>
 
     <Button
+        android:id="@+id/activity_main_join_room_button"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/activity_main_room_username"
         android:layout_centerHorizontal="true"
-        android:textSize="14sp"
         android:elevation="2dp"
+        android:onClick="onJoinRoom"
         android:text="@string/join_room"
-        android:id="@+id/activity_main_join_room_button"
-        />
+        android:textSize="14sp" />
 
     <Button
+        android:id="@+id/activity_main_createroom_button"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:textSize="14sp"
+        android:layout_centerHorizontal="true"
         android:elevation="2dp"
+        android:onClick="onCreateRoom"
         android:text="@string/create_room"
-        android:id="@+id/activity_main_createroom_button"/>
+        android:textSize="14sp" />
 
 
 </RelativeLayout>
