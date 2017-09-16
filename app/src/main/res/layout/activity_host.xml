@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="twa.lectureme.HostActivity">
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/microphone"
+
+        android:layout_marginTop="93dp"
+        android:id="@+id/activity_host_mute_button"
+        android:background="@android:color/transparent"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/activity_host_users_button" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/cross"
+
+        android:id="@+id/activity_host_end_button"
+        android:background="@android:color/transparent"
+        android:scaleX=".8"
+        android:scaleY=".8"
+        android:layout_alignTop="@+id/activity_host_users_button"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="20dp"
+        />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/users"
+
+        android:id="@+id/activity_host_users_button"
+        android:background="@android:color/transparent"
+        android:layout_marginStart="15dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="69dp" />
+
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/questionmark"
+
+        android:id="@+id/activity_host_questions_button"
+        android:background="@android:color/transparent"
+        android:layout_alignTop="@+id/activity_host_mute_button"
+        android:layout_alignStart="@+id/activity_host_end_button" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Room Id: ...."
+        android:textSize="35sp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>
