@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">LectureMe</string>
+
+    <!-- activity_main -->
+    <string name="enter_room_id">Enter Room ID</string>
+    <string name="join_room">Join Room</string>
+    <string name = "create_room">Create a room</string>
+
+    <string name="enter_name">Enter username</string>
+
 </resources>
