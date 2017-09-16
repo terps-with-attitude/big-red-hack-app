@@ -46,6 +46,9 @@ public class MainActivity extends Activity {
             Log.d("E", "Invalid username.");
         }
 
+
         // process joining room
+        Intent intent = new Intent(this, StudentInterfaceActivity.class);
+        startActivity(intent);
     }
 }

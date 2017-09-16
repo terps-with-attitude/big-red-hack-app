@@ -24,7 +24,8 @@ public class StudentInterfaceActivity extends AppCompatActivity {
 
     private String url ="http://www.google.com";
     private static final String TEST_ID  = "0123456789";
-    private RequestQueue queue = Volley.newRequestQueue(this);
+    private static final String TEST_RID = "room0";
+    private RequestQueue queue;
     private EditText qText;
     private ImageButton qSubmit;
 
@@ -34,6 +35,7 @@ public class StudentInterfaceActivity extends AppCompatActivity {
         setContentView(R.layout.activity_student_interface);
         qText = (EditText) findViewById(R.id.qText);
         qSubmit = (ImageButton) findViewById(R.id.submitQ);
+        queue = Volley.newRequestQueue(getApplicationContext());
     }
 
     private void onSubmit(View v)
@@ -50,6 +52,7 @@ public class StudentInterfaceActivity extends AppCompatActivity {
         try {
             question.put("uid",TEST_ID);
             question.put("question",qText.getText().toString());
+            question.put("rid",TEST_RID);
         } catch (JSONException e) {
             e.printStackTrace();
         }
