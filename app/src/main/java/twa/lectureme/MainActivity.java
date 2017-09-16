@@ -32,8 +32,6 @@ public class MainActivity extends Activity {
 
 
     public void onCreateRoom(View v) {
-        Intent intent = new Intent(this, HostActivity.class);
-        startActivity(intent);
     }
 
     public void onJoinRoom(View v) {
