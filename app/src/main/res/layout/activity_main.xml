@@ -1,18 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="twa.lectureme.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-</android.support.constraint.ConstraintLayout>
+    <ImageView
+        android:layout_width="154dp"
+        android:layout_height="199dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/mic_home_pic"
+        android:id="@+id/activity_main_logo"
+        />
+
+    <EditText
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/activity_main_logo"
+        android:layout_centerHorizontal="true"
+        android:maxLength="5"
+        android:hint="@string/enter_room_id"
+        android:textAlignment="center"
+        android:id="@+id/activity_main_room_id"
+        />
+    <EditText
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/activity_main_room_id"
+        android:textAlignment="center"
+        android:layout_centerHorizontal="true"
+        android:hint="@string/enter_name"
+        android:id="@+id/activity_main_room_username"/>
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/activity_main_room_username"
+        android:layout_centerHorizontal="true"
+        android:textSize="14sp"
+        android:elevation="2dp"
+        android:text="@string/join_room"
+        android:id="@+id/activity_main_join_room_button"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:textSize="14sp"
+        android:elevation="2dp"
+        android:text="@string/create_room"
+        android:id="@+id/activity_main_createroom_button"/>
+
+
+</RelativeLayout>
