@@ -1,6 +1,7 @@
 package twa.lectureme;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.StrictMode;
 import android.os.Bundle;
 import android.util.Log;
@@ -34,8 +35,11 @@ public class MainActivity extends Activity implements View.OnClickListener{
     @Override
     public void onClick(View view) {
         if (view == createRoomButton) {
-            //Intent intent = new Intent(this, CreateRoomActivity.class);
-            //startActivity(intent);
+            Intent intent = new Intent(this, HostActivity.class);
+            startActivity(intent);
+
+
+
 
         } else if (view == joinRoomButton) {
             if (roomIdText.getText().toString().length() != 5) {
