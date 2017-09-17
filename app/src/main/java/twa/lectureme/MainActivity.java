@@ -1,9 +1,13 @@
 package twa.lectureme;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.StrictMode;
 import android.os.Bundle;
+import android.provider.Telephony;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -13,7 +17,8 @@ public class MainActivity extends Activity {
 
     private Button createRoomButton, joinRoomButton;
     private EditText roomIdText, usernameText;
-
+    private RecordingRunnable listening;
+    private RequestHandler handler;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,16 +27,24 @@ public class MainActivity extends Activity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        createRoomButton = findViewById(R.id.activity_main_createroom_button);
+        /*createRoomButton = findViewById(R.id.activity_main_createroom_button);
         joinRoomButton = findViewById(R.id.activity_main_join_room_button);
         roomIdText = findViewById(R.id.activity_main_room_id);
-        usernameText = findViewById(R.id.activity_main_room_username);
+        usernameText = findViewById(R.id.activity_main_room_username);*/
+
+        handler = new RequestHandler();
+
+        if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO}, 5);
 
 
+
+        }
     }
 
-
     public void onCreateRoom(View v) {
+        listening = new RecordingRunnable(handler,getApplicationContext());
     }
 
     public void onJoinRoom(View v) {
