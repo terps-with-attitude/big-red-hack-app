@@ -9,6 +9,7 @@ import android.util.Log;
 
 import java.io.IOException;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -16,25 +17,33 @@ import java.util.TimerTask;
  * Created by anton on 9/16/17.
  */
 
-public class RecordingRunnable{
+public class RecordingRunnable implements Runnable {
 
-    private static final int SAMPLE_RATE = 44100;
+    private static final int SAMPLE_RATE = 22050;
 
-    //private AudioRecord recorder;
+    private AudioRecord recorder;
 
-    private MediaRecorder mRecorder;
+    //private MediaRecorder mRecorder;
     private boolean canceled = false;
 
     private Timer t;
     short[] audioBuffer;
 
-    RequestHandler requester;
+    //RequestHandler requester;
+    BinaryRequestHandler requester;
 
     LinkedList<short[]> section;
 
-    public RecordingRunnable(RequestHandler requester, Context con)
+    private Context c;
+
+    public RecordingRunnable(BinaryRequestHandler requester, Context con)
     {
-        final String mFileName = con.getFilesDir().getAbsolutePath()+"/audiorecordtest.3gp";
+        c = con;
+
+        section = new LinkedList<>();
+
+        this.requester = requester;
+        /*final String mFileName = con.getFilesDir().getAbsolutePath()+"/audiorecordtest.mp4";
 
         final Context c = con;
         final RequestHandler r = requester;
@@ -42,7 +51,7 @@ public class RecordingRunnable{
         this.requester = requester;
         mRecorder = new MediaRecorder();
         mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-        mRecorder.setOutputFormat(MediaRecorder.OutputFormat.WEBM);
+        mRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
         mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);
         mRecorder.setOutputFile(mFileName);
         try {
@@ -74,7 +83,7 @@ public class RecordingRunnable{
                 }
                 mRecorder.start();
             }
-        },5000,5000);
+        },5000,5000);*/
     }
 
     //@Override
@@ -115,5 +124,35 @@ public class RecordingRunnable{
     //}
     public void cancel(){
 
+    }
+
+    @Override
+    public void run() {
+        android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_AUDIO);
+        int bufferSize = AudioRecord.getMinBufferSize(SAMPLE_RATE,
+                AudioFormat.CHANNEL_IN_MONO,
+                AudioFormat.ENCODING_PCM_16BIT);
+        Log.d("Buffer", String.valueOf(bufferSize));
+        if (bufferSize == AudioRecord.ERROR || bufferSize == AudioRecord.ERROR_BAD_VALUE) {
+            bufferSize = SAMPLE_RATE * 2;
+        }
+        recorder = new AudioRecord(MediaRecorder.AudioSource.MIC,SAMPLE_RATE,AudioFormat.CHANNEL_IN_DEFAULT,AudioFormat.ENCODING_PCM_16BIT, bufferSize);
+        if (recorder.getState() != AudioRecord.STATE_INITIALIZED) {
+            Log.e("RECORDER_ERROR", "Audio Record can't initialize!");
+            return;
+        }
+        audioBuffer = new short[bufferSize/2];
+        recorder.startRecording();
+        int read = 0;
+        while (!canceled) {
+            read += recorder.read(audioBuffer, 0, audioBuffer.length);
+
+            section.add(audioBuffer.clone());
+            if (read > (1 * SAMPLE_RATE)) {
+                requester.handleRequest((List<short[]>)section.clone(), read, c);
+                read = 0;
+                section.clear();
+            }
+        }
     }
 }

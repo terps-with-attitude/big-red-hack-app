@@ -18,7 +18,7 @@ public class MainActivity extends Activity {
     private Button createRoomButton, joinRoomButton;
     private EditText roomIdText, usernameText;
     private RecordingRunnable listening;
-    private RequestHandler handler;
+    private BinaryRequestHandler handler;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +32,7 @@ public class MainActivity extends Activity {
         roomIdText = findViewById(R.id.activity_main_room_id);
         usernameText = findViewById(R.id.activity_main_room_username);*/
 
-        handler = new RequestHandler();
+        handler = new BinaryRequestHandler();
 
         if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
 
@@ -45,6 +45,7 @@ public class MainActivity extends Activity {
 
     public void onCreateRoom(View v) {
         listening = new RecordingRunnable(handler,getApplicationContext());
+        new Thread(listening).start();
     }
 
     public void onJoinRoom(View v) {
